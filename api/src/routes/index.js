@@ -10,6 +10,6 @@ const searchByName = require ('./searchByName.js')
 // Ejemplo: router.use('/auth', authRouter);
 router.use('/dogs', dogsRouter);
 router.use('/dogs', razaRouter);
-router.use('/dogs', searchByName);
+router.use('/dog', searchByName);
 
 module.exports = router;

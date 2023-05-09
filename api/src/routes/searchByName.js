@@ -2,6 +2,6 @@ const express = require('express');
 const router = express.Router();
 const {getDogsByName} = require('../controllers/getDogsByName.js');
 
-router.get('/', getDogsByName);
+router.get('/name', getDogsByName);
 
 module.exports = router;
