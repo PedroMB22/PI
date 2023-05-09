@@ -16,7 +16,6 @@ module.exports.postDogs = async (req, res) => {
         if (dogCreated) res.status(200).json(dogCreated);
         else res.status(401).json ({ message: 'Error al crear la raza'});
     }
-        
     catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error de servidor' });

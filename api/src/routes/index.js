@@ -16,6 +16,6 @@ router.use('/dogs', razaRouter);
 router.use('/dog', searchByNameRouter);
 router.use('/temperaments',temperamentsRouter)
 router.use('/dogs', postDogsRouter);
-router.use('/dogs', getDogsDBRouter);
+router.use('/dog', getDogsDBRouter);
 
 module.exports = router;
