@@ -4,4 +4,6 @@ const {getRazaById} = require('../controllers/getRazaById.js');
 
 router.get('/:id' , getRazaById)
 
+
+
 module.exports = router;

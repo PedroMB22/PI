@@ -4,12 +4,14 @@ const router = Router();
 // Ejemplo: const authRouter = require('./auth.js');
 const dogsRouter = require('./dogs.js');
 const razaRouter = require ('./razaById.js')
-const searchByName = require ('./searchByName.js')
+const searchByNameRouter = require ('./searchByName.js')
+const temperamentsRouter = require ('./temperaments.js')
 
 // Configura los enrutadores
 // Ejemplo: router.use('/auth', authRouter);
 router.use('/dogs', dogsRouter);
 router.use('/dogs', razaRouter);
-router.use('/dog', searchByName);
+router.use('/dog', searchByNameRouter);
+router.use('/temperaments',temperamentsRouter)
 
 module.exports = router;
