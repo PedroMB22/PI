@@ -1,0 +1,1 @@
+export const dogsStateModel = {data: null, errors: [],isLoading: false};
