@@ -2,13 +2,13 @@ const { Dog, Temperament } = require("../db.js");
 
 module.exports.postDogs = async (req, res) => {
   try {
-    const { name, height, weight, years_old, image, temperament } = req.body;
+    const { name, height, weight, life_span, image, temperament } = req.body;
 
     const newDog = {
       name,
       height,
       weight,
-      years_old,
+      life_span,
       image,
     };
 
