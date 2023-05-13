@@ -26,34 +26,31 @@ function get() {
       }
     );
   };
+  function request() {
+      return { type: GET_DOGS_REQUEST };
+    }
+    
+    function success(data) {
+        return { type: GET_DOGS_SUCCESS, data };
+    }
+    
+    function failure(error) {
+        return { type: GET_DOGS_FAILURE, error };
+    }
 }
-
-function post(dog) {
-  return (dispatch) => {
-    dispatch(request());
-    return dogService.post(dog).then(
-      (response) => {
-        dispatch(success(response.data));
-      },
-      (error) => {
-        dispatch(failure(error.toString()));
-      }
-    );
-  };
-}
-
-function request() {
-  return { type: GET_DOGS_REQUEST };
-}
-
-function success(data) {
-  return { type: GET_DOGS_SUCCESS, data };
-}
-
-function failure(error) {
-  return { type: GET_DOGS_FAILURE, error };
-}
-
+    function post(dog) {
+        return (dispatch) => {
+      dispatch(request());
+      return dogService.post(dog).then(
+          (response) => {
+              dispatch(success(response.data));
+            },
+            (error) => {
+                dispatch(failure(error.toString()));
+            }
+            );
+        };
+  
 function request() {
   return { type: POST_DOG_REQUEST };
 }
@@ -64,4 +61,5 @@ function success(data) {
 
 function failure(error) {
   return { type: POST_DOG_FAILURE, error };
+}
 }

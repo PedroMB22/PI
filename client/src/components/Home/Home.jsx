@@ -2,7 +2,8 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dogsActions } from '../../redux/actions/dogs.actions';
-
+import CardsDogs from '../Cards/CardsDogs';
+import Loader from '../../utilities/Loader';
 const Home = () => {
     const dispatch = useDispatch();
 
@@ -13,9 +14,12 @@ const Home = () => {
   }, [dispatch]);
   console.log(allDogs);
   return (
-    //fragments
     <> 
     <h1>Home</h1>
+    {allDogs.isLoading ===true
+    ?<Loader></Loader>
+    :<CardsDogs AllDogs={allDogs.data}/>
+    }
     </>
 
   )

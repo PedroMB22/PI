@@ -15,12 +15,14 @@ import {
     switch (action.type) {
     
       case GET_DOGS_REQUEST:
+      case POST_DOG_REQUEST:  
         return {
           ...state,
           isLoading: true,
         };
   
       case GET_DOGS_SUCCESS:
+      case POST_DOG_SUCCESS:
         return {
           ...state,
           data: action.data,
@@ -28,6 +30,7 @@ import {
         };
      
       case GET_DOGS_FAILURE:
+      case POST_DOG_FAILURE:
         return {
           ...state,
           errors: {
@@ -35,27 +38,7 @@ import {
           },
           isLoading: false,
         };
-        case POST_DOG_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-
-    case POST_DOG_SUCCESS:
-      return {
-        ...state,
-        data: action.data,
-        isLoading: false,
-      };
-
-    case POST_DOG_FAILURE:
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-        },
-        isLoading: false,
-      };
+     
       default:
         return state;
     }
