@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import '../../css/searchBar.css';
 export default function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const [searchType, setSearchType] = useState("name");
@@ -45,21 +45,27 @@ export default function SearchBar() {
   };
 
   return (
-    <div>
+    <>
       {alertMessage && <div className="alert">{alertMessage}</div>}
       <form onSubmit={handleSubmit}>
+      <div className="input-box">
+      <i className="uil uil-search"></i>
         <input
           type="text"
           placeholder="Search..."
           value={searchValue}
           onChange={handleInputChange}
         />
-        <select value={searchType} onChange={handleSelectChange}>
+        <select className="select" value={searchType} onChange={handleSelectChange}>
           <option value="name">Search by name</option>
           <option value="id">Search by ID</option>
         </select>
-        <button type="submit">Search</button>
+        <button className="button" type="submit">Search</button>
+        </div>
       </form>
-    </div>
+    </>
   );
 }
+
+      
+      

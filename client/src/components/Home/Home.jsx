@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dogsActions } from '../../redux/actions/dogs.actions';
 import CardsDogs from '../Cards/CardsDogs';
 import Loader from '../../utilities/Loader';
+import '../../css/home.css'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Home = () => {
 
   return (
     <>
+    
       <h1>Home</h1>
       {alertMessage ? (
         <div className="alert">{alertMessage}</div>
@@ -23,6 +25,7 @@ const Home = () => {
       ) : (
         <CardsDogs AllDogs={allDogs.data} />
       )}
+    
     </>
   );
 };
