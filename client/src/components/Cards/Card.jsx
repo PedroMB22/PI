@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../../css/cards.css'
 
 const Card = (props) => {
@@ -13,11 +13,12 @@ const Card = (props) => {
                 <p>Weight: {weight}</p>
                 <p>Life Span: {life_span}</p>
             </div>
-            <Link to={`/dogdetail/${id}`}>
+            <NavLink to={`/dogdetail/${id}`}>
                 <button className="input-box button">Details</button>
-            </Link>
+            </NavLink>
         </div>
     )
 }
 
 export default Card
+

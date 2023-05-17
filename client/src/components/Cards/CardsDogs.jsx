@@ -9,6 +9,7 @@ const CardsDogs = (props) => {
       {props?.AllDogs?.map((dog) => (
         <Card
           key={dog.id}
+          id={dog.id}
           name={dog.name}
           image={dog.image}
           temperament={dog.temperament}
