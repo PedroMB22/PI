@@ -9,7 +9,7 @@ module.exports.postDogs = async (req, res) => {
       height,
       weight,
       life_span,
-      image,
+      image: image || 'https://iheartcraftythings.com/wp-content/uploads/2021/04/Drawing-Dog-in-10-Easy-Steps.jpg',
     };
 
     const dogCreated = await Dog.create(newDog, {
