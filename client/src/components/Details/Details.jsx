@@ -12,8 +12,9 @@ const Details = ({ allDogs }) => {
     <div>
       <h2>{dog.name}</h2>
       <img src={dog.image} alt={dog.name} />
-      <p>Temperament: {dog.temperament}</p>
-      <p>Weight: {dog.weight}</p>
+      <p>Temperament: {dog.temperament||dog.temperaments?.map(temperament => temperament.name).join(', ')}</p>
+      <p>Weight: {dog.weight.metric}</p>
+      <p>Height: {dog.height.metric}</p>
       <p>Life Span: {dog.life_span}</p>
     </div>
   );

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../../css/cards.css'
 
 const Card = (props) => {
-    const { id, name, image, temperament, weight, life_span } = props
+    const { id, name, image, temperament, height, weight, life_span } = props
     //console.log("PROPS EN CARDS",props);
     return (
         <div className="card">
@@ -11,7 +11,8 @@ const Card = (props) => {
             <div className="card-text">
                 <h3>{name}</h3>
                 <p>Temperament: {temperament}</p>
-                <p>Weight: {weight}</p>
+                <p>Height: {height?.metric || height}</p>
+                <p>Weight: {weight?.metric || weight}</p>
                 <p>Life Span: {life_span}</p>
             </div>
             <NavLink to={`/dogdetail/${id}`}>
@@ -22,4 +23,5 @@ const Card = (props) => {
 }
 
 export default Card
+
 
