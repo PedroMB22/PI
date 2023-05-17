@@ -33,6 +33,9 @@ export default function Navbar() {
           <a href="/home" onClick={handleHomeClick} className="home-link">
             Home
           </a>
+          <a href="/createDog" className="create-dog-link">
+            Create Dog
+          </a>
         </div>
       </header>
     </div>
