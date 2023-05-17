@@ -1,18 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { dogsActions } from "../../redux/actions/dogs.actions";
 import { Antonyms } from "../Temperaments/Antonyms"; // Importa los antónimos
+import { temperamentsActions } from "../../redux/actions/temperaments.actions";
 
 const CreateDog = () => {
   const dispatch = useDispatch();
-
+  const temperaments = useSelector((state) => Object.values(state.temperamentsReducer?.data || {}));
+  
   const [name, setName] = useState("");
   const [minHeight, setMinHeight] = useState("");
   const [maxHeight, setMaxHeight] = useState("");
   const [minWeight, setMinWeight] = useState("");
   const [maxWeight, setMaxWeight] = useState("");
   const [lifeSpan, setLifeSpan] = useState("");
-  const [temperaments, setTemperaments] = useState("");
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
+
+  useEffect(() => {
+    console.log(temperaments);
+    dispatch(temperamentsActions.getTemperaments()); // Cargar los temperamentos al montar el componente
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,17 +29,15 @@ const CreateDog = () => {
       height: `${minHeight} - ${maxHeight}`,
       weight: `${minWeight} - ${maxWeight}`,
       life_span: lifeSpan,
-      temperament: temperaments.split(",").map(str => str.trim()), // Convertir cadena de temperamentos en array
+      temperament: selectedTemperaments,
     };
 
-    // Enviar los datos al servidor
-    dispatch(dogsActions.post(dogData));
+    dispatch(dogsActions.post(dogData)); // Enviar los datos al servidor
   };
 
   const handleNameChange = (e) => {
     const newName = e.target.value;
 
-    // Si el nombre contiene números, no cambie el estado
     if (/\d/.test(newName)) {
       return;
     }
@@ -41,20 +46,15 @@ const CreateDog = () => {
   };
 
   const handleTemperamentChange = (e) => {
-    const newTemperaments = e.target.value;
-
-    // Comprobar si los temperamentos son antónimos
-    const temperamentArray = newTemperaments.split(",").map(str => str.trim());
-    for (let i = 0; i < temperamentArray.length; i++) {
-      for (let j = i + 1; j < temperamentArray.length; j++) {
-        if (Antonyms[temperamentArray[i]] === temperamentArray[j] || Antonyms[temperamentArray[j]] === temperamentArray[i]) {
-          return; // Si son antónimos, no cambie el estado
-        }
-      }
+    const temperament = e.target.value;
+  
+    if (selectedTemperaments.includes(temperament)) {
+      setSelectedTemperaments(selectedTemperaments.filter(t => t !== temperament));
+    } else {
+      setSelectedTemperaments([...selectedTemperaments, temperament]);
     }
-
-    setTemperaments(newTemperaments);
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -68,14 +68,30 @@ const CreateDog = () => {
       <label>Peso (min-max):</label>
       <input type="number" min="1" value={minWeight} onChange={(e) => setMinWeight(e.target.value)} />
       <input type="number" min={minWeight} value={maxWeight} onChange={(e) => setMaxWeight(e.target.value)} />
+
       <label>Años de vida:</label>
-  <input value={lifeSpan} onChange={(e) => setLifeSpan(e.target.value)} />
+      <input value={lifeSpan} onChange={(e) => setLifeSpan(e.target.value)} />
 
-  <label>Temperamentos (separados por coma):</label>
-  <input value={temperaments} onChange={handleTemperamentChange} />
+      <label>Temperamentos:</label>
+      {temperaments &&
+        temperaments.map((temperament) => (
+            <div key={temperament}>
+              <label>
+                <input 
+                  type="checkbox" 
+                  value={temperament}
+                  checked={selectedTemperaments.includes(temperament)}
+                  onChange={handleTemperamentChange}
+                />
+                {temperament}
+              </label>
+            </div>
 
-  <button type="submit">Crear nueva raza</button>
-</form>
-);
+        ))}
+
+      <button type="submit">Crear nueva raza</button>
+    </form>
+  );
 };
+
 export default CreateDog;
