@@ -19,6 +19,7 @@ function get() {
     dispatch(request());
     return dogService.get().then(
       (response) => {
+        console.log("response en get actions",response.data)
         dispatch(success(response.data));
       },
       (error) => {
@@ -43,6 +44,7 @@ function get() {
       dispatch(request());
       return dogService.post(dog).then(
           (response) => {
+            console.log(response.data);
               dispatch(success(response.data));
             },
             (error) => {

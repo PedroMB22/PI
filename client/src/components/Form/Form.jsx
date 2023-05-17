@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dogsActions } from "../../redux/actions/dogs.actions";
-import { Antonyms } from "../Temperaments/Antonyms"; // Importa los antónimos
 import { temperamentsActions } from "../../redux/actions/temperaments.actions";
 
 const CreateDog = () => {
@@ -29,10 +28,11 @@ const CreateDog = () => {
       height: `${minHeight} - ${maxHeight}`,
       weight: `${minWeight} - ${maxWeight}`,
       life_span: lifeSpan,
-      temperament: selectedTemperaments,
+      temperaments: selectedTemperaments,
     };
 
     dispatch(dogsActions.post(dogData)); // Enviar los datos al servidor
+    alert("Dog created successfully!");
   };
 
   const handleNameChange = (e) => {
@@ -54,7 +54,7 @@ const CreateDog = () => {
       setSelectedTemperaments([...selectedTemperaments, temperament]);
     }
   };
-  
+  console.log(selectedTemperaments);
 
   return (
     <form onSubmit={handleSubmit}>

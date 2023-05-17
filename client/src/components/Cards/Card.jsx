@@ -4,6 +4,7 @@ import '../../css/cards.css'
 
 const Card = (props) => {
     const { id, name, image, temperament, weight, life_span } = props
+    //console.log("PROPS EN CARDS",props);
     return (
         <div className="card">
             <img src={image} alt={name} />

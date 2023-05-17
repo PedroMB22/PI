@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { dogsStateModel } from "../../redux/states/dogs.states";
 import '../../css/navBar.css';
@@ -30,12 +30,12 @@ export default function Navbar() {
           <SearchBar onSearchResult={handleSearchResult} />
         </div>
         <div className="menu">
-          <a href="/home" onClick={handleHomeClick} className="home-link">
+        <Link to="/" className="home-link">
             Home
-          </a>
-          <a href="/createDog" className="create-dog-link">
+        </Link>
+        <Link to="/create-dog" className="home-link">
             Create Dog
-          </a>
+        </Link>
         </div>
       </header>
     </div>
