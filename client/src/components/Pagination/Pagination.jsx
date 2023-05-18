@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../css/pagination.css';
 
-const Pagination = ({ cardsPerPage, totalCards, currentPage, onPageChange }) => {
+const Pagination = ({ cardsPerPage, totalCards, currentPage, onPageChange, selectedTemperament }) => {
   const pageNumbers = [];
+  const [previousTemperament, setPreviousTemperament] = useState('');
   const totalPages = Math.ceil(totalCards / cardsPerPage);
   const maxVisiblePages = 5; // Máximo de páginas visibles
 
@@ -31,6 +32,14 @@ const Pagination = ({ cardsPerPage, totalCards, currentPage, onPageChange }) => 
       currentPage + offset
     );
   }
+
+  useEffect(() => {
+    if (selectedTemperament !== previousTemperament) {
+      // Restablecer la página actual a la primera solo cuando el temperamento seleccionado cambie
+      onPageChange(1);
+      setPreviousTemperament(selectedTemperament);
+    }
+  }, [selectedTemperament, previousTemperament, onPageChange]);
 
   return (
     <div className="pagination">

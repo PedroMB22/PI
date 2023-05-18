@@ -44,5 +44,7 @@
 }
 
 .card-text {
-  padding-bottom: 80px; 
+  height: 320px;
+  overflow: hidden;
+  padding: 10px;
 }
