@@ -1,0 +1,27 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .pagination .page-link {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    margin: 0 4px;
+    transition: background-color 0.3s ease;
+    }
+    
+    .pagination .page-link.active {
+    background-color: #4070f4;
+    color: #fff;
+    }
+    
+    .pagination .page-link:hover {
+    background-color: #f0f0f0;
+    }

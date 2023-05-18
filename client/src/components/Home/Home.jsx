@@ -19,7 +19,13 @@ const Home = () => {
   // Lógica para calcular el rango de tarjetas a mostrar en la página actual
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = allDogs.data ? allDogs.data.slice(indexOfFirstCard, indexOfLastCard) : [];
+  const currentCards = allDogs.data
+    ? allDogs.data.slice(indexOfFirstCard, indexOfLastCard)
+    : [];
+
+  // Dividir las tarjetas en 2 grupos (arriba y abajo)
+  const topCards = currentCards.slice(0, 4);
+  const bottomCards = currentCards.slice(4, 8);
 
   // Función para cambiar de página
   const handlePageChange = (pageNumber) => {
@@ -33,7 +39,12 @@ const Home = () => {
         <Loader />
       ) : (
         <>
-          <CardsDogs allDogs={currentCards} />
+          <div className="top-cards">
+            <CardsDogs allDogs={topCards} />
+          </div>
+          <div className="bottom-cards">
+            <CardsDogs allDogs={bottomCards} />
+          </div>
           <Pagination
             cardsPerPage={cardsPerPage}
             totalCards={allDogs.data ? allDogs.data.length : 0}
