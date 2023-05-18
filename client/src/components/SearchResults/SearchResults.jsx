@@ -15,14 +15,16 @@ export default function SearchResults() {
       {searchResults.length > 0 ? (
         <div className="card-container">
           {searchResults.map((dog) => (
-            <Card
-              key={dog.id}
-              name={dog.name}
-              image={dog.reference_image_id ? `${imageUrl}${dog.reference_image_id}.jpg` : imageDefault}
-              temperament={dog.temperament}
-              weight={`${dog.weight.imperial} / ${dog.weight.metric}`}
-              life_span={dog.life_span}
-            />
+           <Card
+             key={dog.id}
+             id={dog.id}
+             name={dog.name}
+             image={dog.image || (dog.reference_image_id ? `${imageUrl}${dog.reference_image_id}.jpg` : imageDefault)}
+             temperament={dog.temperaments?.map(temperament => temperament.name).join(', ') || dog.temperament}
+             weight={dog.weight}
+             height={dog.height}
+             life_span={dog.life_span}
+           />
           ))}
         </div>
       ) : (
