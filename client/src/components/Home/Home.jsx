@@ -5,13 +5,15 @@ import CardsDogs from '../Cards/CardsDogs';
 import Loader from '../../utilities/Loader';
 import '../../css/home.css';
 import Pagination from '../Pagination/Pagination';
-import FilterTemperaments from '../Filter/FilterTemperaments';
+import TemperamentsFilter from '../Filter/TemperamentsFilter';
+import WeightFilter from '../Filter/WeightFilter';
 
 const Home = () => {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogsReducer);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTemperament, setSelectedTemperament] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc'); // Estado para el orden de clasificación del peso
   const cardsPerPage = 8;
 
   useEffect(() => {
@@ -25,6 +27,13 @@ const Home = () => {
   const handleTemperamentChange = (e) => {
     setSelectedTemperament(e.target.value);
     setCurrentPage(1); // Restablecer la página a la primera al cambiar el temperamento seleccionado
+  };
+
+  const handleSortChange = (sortValue) => {
+    if (sortOrder !== sortValue) {
+      setSortOrder(sortValue);
+      setCurrentPage(1); // Restablecer la página a la primera al cambiar el orden de clasificación
+    }
   };
 
   const filterByTemperament = (dog) => {
@@ -47,12 +56,32 @@ const Home = () => {
     return dogTemperaments.includes(selectedTemperament);
   };
 
+  const filterAndSortDogs = (dogs) => {
+    let filteredDogs = dogs.filter(filterByTemperament);
+  
+    filteredDogs = filteredDogs.map((dog) => {
+      const weightRange = dog.weight.split(' - ');
+      const weightAverage = (parseFloat(weightRange[0]) + parseFloat(weightRange[1])) / 2;
+  
+      return {
+        ...dog,
+        weightAverage,
+      };
+    });
+  
+    if (sortOrder === 'asc') {
+      filteredDogs = filteredDogs.sort((a, b) => a.weightAverage - b.weightAverage);
+    } else if (sortOrder === 'desc') {
+      filteredDogs = filteredDogs.sort((a, b) => b.weightAverage - a.weightAverage);
+    }
+  
+    return filteredDogs;
+  };
+
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 
-  let filteredCards = allDogs.data || [];
-
-  filteredCards = filteredCards.filter(filterByTemperament);
+  let filteredCards = filterAndSortDogs(allDogs.data || []);
 
   const currentCards = filteredCards.slice(indexOfFirstCard, indexOfLastCard);
 
@@ -62,10 +91,11 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <FilterTemperaments
+      <TemperamentsFilter
         selectedTemperament={selectedTemperament}
         onTemperamentChange={handleTemperamentChange}
       />
+      <WeightFilter sortOrder={sortOrder} onSortChange={handleSortChange} />
       <div className="cards-section">
         {allDogs.isLoading ? (
           <Loader />

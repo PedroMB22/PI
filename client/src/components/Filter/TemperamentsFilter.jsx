@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { temperamentsActions } from '../../redux/actions';
 
-const FilterTemperaments = ({ selectedTemperament, onTemperamentChange }) => {
+const TemperamentsFilter = ({ selectedTemperament, onTemperamentChange }) => {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => Object.values(state.temperamentsReducer?.data || {}));
 
@@ -24,4 +24,4 @@ const FilterTemperaments = ({ selectedTemperament, onTemperamentChange }) => {
   );
 };
 
-export default FilterTemperaments;
+export default TemperamentsFilter;
