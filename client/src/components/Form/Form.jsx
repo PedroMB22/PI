@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dogsActions } from "../../redux/actions/dogs.actions";
 import { temperamentsActions } from "../../redux/actions/temperaments.actions";
+import "../../css/form.css"; 
 
 const CreateDog = () => {
   const dispatch = useDispatch();
@@ -58,38 +59,100 @@ const CreateDog = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Nombre:</label>
-      <input value={name} onChange={handleNameChange} />
+      <div className="input-box">
+        <i className="uil uil-dog"></i>
+        <input
+          className="input-field"
+          type="text"
+          placeholder="Nombre"
+          value={name}
+          onChange={handleNameChange}
+        />
+      </div>
 
-      <label>Altura (min-max):</label>
-      <input type="number" min="1" value={minHeight} onChange={(e) => setMinHeight(e.target.value)} />
-      <input type="number" min={minHeight} value={maxHeight} onChange={(e) => setMaxHeight(e.target.value)} />
+      <div className="input-box">
+        <i className="uil uil-ruler"></i>
+        <div className="input-group">
+          <input
+            className="input-field"
+            type="number"
+            min="1"
+            placeholder="Altura mínima"
+            value={minHeight}
+            onChange={(e) => setMinHeight(e.target.value)}
+          />
+          <input
+            className="input-field"
+            type="number"
+            min={minHeight}
+            placeholder="Altura máxima"
+            value={maxHeight}
+            onChange={(e) => setMaxHeight(e.target.value)}
+          />
+        </div>
+      </div>
 
-      <label>Peso (min-max):</label>
-      <input type="number" min="1" value={minWeight} onChange={(e) => setMinWeight(e.target.value)} />
-      <input type="number" min={minWeight} value={maxWeight} onChange={(e) => setMaxWeight(e.target.value)} />
+      <div className="input-box">
+        <i className="uil uil-weight"></i>
+        <div className="input-group">
+          <input
+            className="input-field"
+            type="number"
+            min="1"
+            placeholder="Peso mínimo"
+            value={minWeight}
+            onChange={(e) => setMinWeight(e.target.value)}
+          />
+          <input
+            className="input-field"
+            type="number"
+            min={minWeight}
+            placeholder="Peso máximo"
+            value={maxWeight}
+            onChange={(e) => setMaxWeight(e.target.value)}
+          />
+        </div>
+      </div>
 
-      <label>Años de vida:</label>
-      <input value={lifeSpan} onChange={(e) => setLifeSpan(e.target.value)} />
+      <div className="input-box">
+        <i className="uil uil-hourglass"></i>
+        <input
+          className="input-field"
+          type="text"
+          placeholder="Años de vida"
+          value={lifeSpan}
+          onChange={(e) => setLifeSpan(e.target.value)}
+        />
+      </div>
 
-      <label>Temperamentos:</label>
-      {temperaments &&
-        temperaments.map((temperament) => (
-            <div key={temperament}>
-              <label>
-                <input 
-                  type="checkbox" 
-                  value={temperament}
-                  checked={selectedTemperaments.includes(temperament)}
-                  onChange={handleTemperamentChange}
-                />
-                {temperament}
-              </label>
-            </div>
+      <div className="input-box">
+        <i className="uil uil-search"></i>
+        <select className="select" multiple onChange={handleTemperamentChange}>
+          {temperaments.map((temperament) => (
+            <option key={temperament} value={temperament}>
+              {temperament}
+            </option>
+          ))}
+        </select>
+      </div>
 
+      <div className="input-box">
+        {selectedTemperaments.map((temperament) => (
+          <div key={temperament} className="selected-temperament">
+            {temperament}
+            <button
+              className="remove-button"
+              onClick={() => handleTemperamentChange({ target: { value: temperament } })}
+            >
+              X
+            </button>
+          </div>
         ))}
+      </div>
 
-      <button type="submit">Crear nueva raza</button>
+      <button type="submit" className="input-box button">
+        Crear nueva raza
+      </button>
     </form>
   );
 };

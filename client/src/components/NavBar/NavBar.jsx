@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { dogsStateModel } from "../../redux/states/dogs.states";
-import '../../css/navBar.css';
-import logo from '../images/logo.png';
+import "../../css/navBar.css";
+import logo from "../images/logo.png";
 
 export default function Navbar() {
   const [dogsState, setDogsState] = useState(dogsStateModel);
@@ -20,33 +20,29 @@ export default function Navbar() {
     navigate("/");
   };
 
+  const handleLogoClick = () => {
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <div>
       <header className="header">
-        <div className="logo">
-        <img src={logo} alt="logo" className="logo" />
+        <div className="logo" onClick={handleLogoClick}>
+          <img src={logo} alt="logo" className="logo" />
         </div>
         <div className="search-bar">
           <SearchBar onSearchResult={handleSearchResult} />
         </div>
         <div className="menu">
-        <Link to="/" className="home-link">
+          <Link to="/home" className="home-link" onClick={handleHomeClick}>
             Home
-        </Link>
-        <Link to="/create-dog" className="home-link">
+          </Link>
+          <Link to="/create-dog" className="home-link">
             Create Dog
-        </Link>
+          </Link>
         </div>
       </header>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
