@@ -7,13 +7,16 @@ import '../../css/home.css';
 import Pagination from '../Pagination/Pagination';
 import TemperamentsFilter from '../Filter/TemperamentsFilter';
 import WeightFilter from '../Filter/WeightFilter';
+import NameFilter from '../Filter/NameFilter';
 
 const Home = () => {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogsReducer);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTemperament, setSelectedTemperament] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc'); // Estado para el orden de clasificación del peso
+  const [selectedTemperament, setSelectedTemperament] = useState(null);
+  const [weightSortOrder, setWeightSortOrder] = useState(null);
+  const [nameSortOrder, setNameSortOrder] = useState(null);
+
   const cardsPerPage = 8;
 
   useEffect(() => {
@@ -26,29 +29,32 @@ const Home = () => {
 
   const handleTemperamentChange = (e) => {
     setSelectedTemperament(e.target.value);
-    setCurrentPage(1); // Restablecer la página a la primera al cambiar el temperamento seleccionado
+    setCurrentPage(1);
   };
 
-  const handleSortChange = (sortValue) => {
-    if (sortOrder !== sortValue) {
-      setSortOrder(sortValue);
-      setCurrentPage(1); // Restablecer la página a la primera al cambiar el orden de clasificación
-    }
+  const handleWeightSortChange = (sortValue) => {
+    setNameSortOrder('');
+    setWeightSortOrder(sortValue);
+    setCurrentPage(1);
+  };
+  
+  const handleNameSortChange = (sortValue) => {
+    setWeightSortOrder('');
+    setNameSortOrder(sortValue);
+    setCurrentPage(1);
   };
 
   const filterByTemperament = (dog) => {
-    if (selectedTemperament === '') {
-      return true; // No se ha seleccionado ningún temperamento, se muestra el perro
+    if (selectedTemperament === null) {
+      return true;
     }
 
     let dogTemperaments = [];
 
-    // Para perros de la API
     if (typeof dog.temperament === 'string') {
       dogTemperaments = dog.temperament.split(', ');
     }
 
-    // Para perros de la base de datos
     if (Array.isArray(dog.temperaments)) {
       dogTemperaments = dog.temperaments.map((temperament) => temperament.name);
     }
@@ -58,23 +64,31 @@ const Home = () => {
 
   const filterAndSortDogs = (dogs) => {
     let filteredDogs = dogs.filter(filterByTemperament);
-  
+
     filteredDogs = filteredDogs.map((dog) => {
       const weightRange = dog.weight.split(' - ');
       const weightAverage = (parseFloat(weightRange[0]) + parseFloat(weightRange[1])) / 2;
-  
+
       return {
         ...dog,
         weightAverage,
       };
     });
-  
-    if (sortOrder === 'asc') {
-      filteredDogs = filteredDogs.sort((a, b) => a.weightAverage - b.weightAverage);
-    } else if (sortOrder === 'desc') {
-      filteredDogs = filteredDogs.sort((a, b) => b.weightAverage - a.weightAverage);
+
+    // Apply the name sort order if it's set
+    if (nameSortOrder === 'asc') {
+      filteredDogs.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (nameSortOrder === 'desc') {
+      filteredDogs.sort((a, b) => b.name.localeCompare(a.name));
     }
-  
+
+    // Apply the weight sort order if it's set, it won't overwrite name sorting because JavaScript's sort is stable
+    if (weightSortOrder === 'asc') {
+      filteredDogs.sort((a, b) => a.weightAverage - b.weightAverage);
+    } else if (weightSortOrder === 'desc') {
+      filteredDogs.sort((a, b) => b.weightAverage - a.weightAverage);
+    }
+
     return filteredDogs;
   };
 
@@ -95,7 +109,11 @@ const Home = () => {
         selectedTemperament={selectedTemperament}
         onTemperamentChange={handleTemperamentChange}
       />
-      <WeightFilter sortOrder={sortOrder} onSortChange={handleSortChange} />
+      <WeightFilter
+        sortOrder={weightSortOrder}
+        onSortChange={handleWeightSortChange}
+      />
+      <NameFilter sortOrder={nameSortOrder} onSortChange={handleNameSortChange} />
       <div className="cards-section">
         {allDogs.isLoading ? (
           <Loader />
