@@ -12,7 +12,7 @@ const TemperamentsFilter = ({ selectedTemperament, onTemperamentChange }) => {
 
   return (
     <div className="temperament-filter">
-      <select value={selectedTemperament} onChange={onTemperamentChange}>
+      <select value={selectedTemperament || ''} onChange={onTemperamentChange}>
         <option value="">All Temperaments</option>
         {temperaments.map((temperament) => (
           <option key={temperament} value={temperament}>

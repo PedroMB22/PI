@@ -1,4 +1,5 @@
 const NameFilter = ({ sortOrder, onSortChange }) => {
+    sortOrder = sortOrder || ""; // Si sortOrder es null, usamos una cadena vacía.
     const handleSortChange = (e) => {
       const sortValue = e.target.value;
       onSortChange(sortValue);
@@ -16,4 +17,4 @@ const NameFilter = ({ sortOrder, onSortChange }) => {
       );
     };
   
-  export default NameFilter;
+export default NameFilter;

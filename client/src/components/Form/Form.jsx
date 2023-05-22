@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dogsActions } from "../../redux/actions/dogs.actions";
 import { temperamentsActions } from "../../redux/actions/temperaments.actions";
+import { useNavigate } from "react-router-dom";
 import "../../css/form.css"; 
 
 const CreateDog = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => Object.values(state.temperamentsReducer?.data || {}));
   
@@ -17,7 +19,6 @@ const CreateDog = () => {
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
 
   useEffect(() => {
-    console.log(temperaments);
     dispatch(temperamentsActions.getTemperaments()); // Cargar los temperamentos al montar el componente
   }, [dispatch]);
 
@@ -34,6 +35,7 @@ const CreateDog = () => {
 
     dispatch(dogsActions.post(dogData)); // Enviar los datos al servidor
     alert("Dog created successfully!");
+    navigate('/');
   };
 
   const handleNameChange = (e) => {

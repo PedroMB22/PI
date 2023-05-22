@@ -46,6 +46,15 @@ const Pagination = ({ cardsPerPage, totalCards, currentPage, onPageChange, selec
       {currentPage > 1 && (
         <button
           className="page-link"
+          onClick={() => onPageChange(1)} // Botón para ir al inicio
+        >
+          &lt;&lt; Inicio
+        </button>
+      )}
+
+      {currentPage > 1 && (
+        <button
+          className="page-link"
           onClick={() => onPageChange(currentPage - 1)}
         >
           &lt; Anterior
@@ -68,6 +77,15 @@ const Pagination = ({ cardsPerPage, totalCards, currentPage, onPageChange, selec
           onClick={() => onPageChange(currentPage + 1)}
         >
           Siguiente &gt;
+        </button>
+      )}
+
+      {currentPage < totalPages && (
+        <button
+          className="page-link"
+          onClick={() => onPageChange(totalPages)} // Botón para ir al final
+        >
+          Fin &gt;&gt;
         </button>
       )}
     </div>

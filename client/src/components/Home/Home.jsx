@@ -61,14 +61,33 @@ const Home = () => {
 
     return dogTemperaments.includes(selectedTemperament);
   };
-
+  console.log(allDogs.data) 
   const filterAndSortDogs = (dogs) => {
-    let filteredDogs = dogs.filter(filterByTemperament);
-
+    console.log("FILTER DOGS", dogs);
+    if (!Array.isArray(dogs)) {
+      console.log('dogs is not an array:', dogs);
+      return [];
+    }
+    let filteredDogs = dogs?.filter(filterByTemperament);
+  
+    filteredDogs = filteredDogs.filter((dog) => {
+      // Filtrar los perros que no tienen valor en el peso
+      return !isNaN(parseFloat(dog.weight));
+    });
+  
     filteredDogs = filteredDogs.map((dog) => {
       const weightRange = dog.weight.split(' - ');
-      const weightAverage = (parseFloat(weightRange[0]) + parseFloat(weightRange[1])) / 2;
-
+      let weightAverage;
+  
+      // Si el perro tiene un solo valor de peso, ese será su peso promedio
+      if (weightRange.length === 1) {
+        weightAverage = parseFloat(weightRange[0]);
+      } else {
+        // Calcular el peso promedio como antes para los perros con un rango de peso
+        weightAverage =
+          (parseFloat(weightRange[0]) + parseFloat(weightRange[1])) / 2;
+      }
+  
       return {
         ...dog,
         weightAverage,
@@ -95,7 +114,7 @@ const Home = () => {
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 
-  let filteredCards = filterAndSortDogs(allDogs.data || []);
+  let filteredCards = allDogs.data ? filterAndSortDogs(allDogs.data) : [];
 
   const currentCards = filteredCards.slice(indexOfFirstCard, indexOfLastCard);
 
