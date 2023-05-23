@@ -5,11 +5,21 @@ import { temperamentsActions } from "../../redux/actions/temperaments.actions";
 import { useNavigate } from "react-router-dom";
 import "../../css/form.css"; 
 
+const areTemperamentsMatching = (temperamentsString, selectedTemperaments) => {
+  if (!temperamentsString) {
+    return false;
+  }
+
+  const dogTemperaments = temperamentsString.split(", ");
+  return selectedTemperaments.every((t) => dogTemperaments.includes(t));
+};
+
 const CreateDog = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const temperaments = useSelector((state) => Object.values(state.temperamentsReducer?.data || {}));
-  
+  const temperaments = useSelector((state) =>
+  Object.values(state.temperamentsReducer?.data || {}).sort()
+);  
   const [name, setName] = useState("");
   const [minHeight, setMinHeight] = useState("");
   const [maxHeight, setMaxHeight] = useState("");
@@ -17,9 +27,10 @@ const CreateDog = () => {
   const [maxWeight, setMaxWeight] = useState("");
   const [lifeSpan, setLifeSpan] = useState("");
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
+  const dogs = useSelector((state) => Object.values(state.dogsReducer?.data || {}));
 
   useEffect(() => {
-    dispatch(temperamentsActions.getTemperaments()); // Cargar los temperamentos al montar el componente
+    dispatch(temperamentsActions.getTemperaments());
   }, [dispatch]);
 
   const handleSubmit = (e) => {
@@ -33,7 +44,7 @@ const CreateDog = () => {
       temperaments: selectedTemperaments,
     };
 
-    dispatch(dogsActions.post(dogData)); // Enviar los datos al servidor
+    dispatch(dogsActions.post(dogData));
     alert("Dog created successfully!");
     navigate('/');
   };
@@ -51,13 +62,27 @@ const CreateDog = () => {
   const handleTemperamentChange = (e) => {
     const temperament = e.target.value;
   
+    if (selectedTemperaments.length > 0) {
+      // Verificar si la combinación de temperamentos seleccionada está disponible en algún perro de la lista
+      const matchingCombination = dogs.some((dog) =>
+        areTemperamentsMatching(dog.temperament, [
+          ...selectedTemperaments,
+          temperament,
+        ])
+      );
+  
+      if (!matchingCombination) {
+        alert("This combination of temperaments is not available.");
+        return;
+      }
+    }
+  
     if (selectedTemperaments.includes(temperament)) {
-      setSelectedTemperaments(selectedTemperaments.filter(t => t !== temperament));
+      setSelectedTemperaments(selectedTemperaments.filter((t) => t !== temperament));
     } else {
       setSelectedTemperaments([...selectedTemperaments, temperament]);
     }
   };
-  console.log(selectedTemperaments);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -130,11 +155,13 @@ const CreateDog = () => {
       <div className="input-box">
         <i className="uil uil-search"></i>
         <select className="select" multiple onChange={handleTemperamentChange}>
-          {temperaments.map((temperament) => (
-            <option key={temperament} value={temperament}>
-              {temperament}
-            </option>
-          ))}
+          {temperaments
+            .filter((temperament) => !selectedTemperaments.includes(temperament))
+            .map((temperament) => (
+              <option key={temperament} value={temperament}>
+                {temperament}
+              </option>
+            ))}
         </select>
       </div>
 

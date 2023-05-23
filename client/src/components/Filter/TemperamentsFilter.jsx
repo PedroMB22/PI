@@ -6,6 +6,9 @@ const TemperamentsFilter = ({ selectedTemperament, onTemperamentChange }) => {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => Object.values(state.temperamentsReducer?.data || {}));
 
+  // Ordenar los temperamentos alfabéticamente
+  const sortedTemperaments = temperaments.sort((a, b) => a.localeCompare(b));
+
   React.useEffect(() => {
     dispatch(temperamentsActions.getTemperaments());
   }, [dispatch]);
@@ -14,7 +17,7 @@ const TemperamentsFilter = ({ selectedTemperament, onTemperamentChange }) => {
     <div className="temperament-filter">
       <select value={selectedTemperament || ''} onChange={onTemperamentChange}>
         <option value="">All Temperaments</option>
-        {temperaments.map((temperament) => (
+        {sortedTemperaments.map((temperament) => (
           <option key={temperament} value={temperament}>
             {temperament}
           </option>

@@ -18,7 +18,7 @@ export default function SearchBar() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (searchType === "name") {
+    if (searchType === "name" && searchValue) {
       try {
         const response = await axios.get(
           `http://localhost:3001/dog/name?name=${searchValue}`
@@ -30,7 +30,7 @@ export default function SearchBar() {
         console.error(error);
         setAlertMessage("No se encontró ningún perro con ese nombre");
       }
-    } else if (searchType === "id") {
+    } else if (searchType === "id" && searchValue) {
       try {
         const response = await axios.get(`http://localhost:3001/dogs/${searchValue}`);
         const data = response.data;
@@ -40,6 +40,8 @@ export default function SearchBar() {
         console.log(error);
         setAlertMessage("No se encontró ningún perro con ese ID");
       }
+    } else {
+      setAlertMessage("Por favor ingrese un nombre o ID válido");
     }
     setSearchValue("");
   };
