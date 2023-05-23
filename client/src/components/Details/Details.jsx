@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { dogsActions } from '../../redux/actions';
 import '../../css/details.css';
+import Loader from '../../utilities/Loader';
 
 const Details = () => {
   const { id } = useParams();
@@ -22,18 +23,16 @@ useEffect(() => {
     });
 }, [dispatch, id]);
 
-console.log("Perro:", dog);
-
 if (errors) {
   return <h2>Error: {errors.toString()}</h2>;
 }
 
 if (!isDataLoaded || isLoading) {
-  return <h2>Cargando...</h2>
+  return <Loader />
 }
 
 if (!dog) {
-  return <h2>Loading dog information...</h2>;
+  return <Loader />;
 }
 
   
@@ -45,7 +44,6 @@ const temperaments = Array.isArray(dog.temperaments)
     const imageUrl = "https://cdn2.thedogapi.com/images/"; 
     const imageDefault =  "https://img.freepik.com/vector-premium/lindo-cachorro-perro-salchicha-sobre-fondo-blanco-diseno-dibujos-animados_530689-342.jpg"; 
     const image = dog.image || (dog.reference_image_id ? `${imageUrl}${dog.reference_image_id}.jpg` : imageDefault);
-    //const temperaments = dog.temperaments?.map(temperament => temperament.name).join(', ') || dog.temperament;
   
     // Renderiza los detalles
     return (

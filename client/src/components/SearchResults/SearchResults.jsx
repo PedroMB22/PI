@@ -20,7 +20,7 @@ export default function SearchResults() {
              id={dog.id}
              name={dog.name}
              image={dog.image || (dog.reference_image_id ? `${imageUrl}${dog.reference_image_id}.jpg` : imageDefault)}
-             temperament={dog.temperaments?.map(temperament => temperament.name).join(', ') || dog.temperament}
+             temperament={dog.temperaments?.map(temperament => temperament.name).join(', ') || dog.temperaments}
              weight={dog.weight}
              height={dog.height}
              life_span={dog.life_span}

@@ -56,7 +56,7 @@ function get() {
             }
             );
         };
-  
+
 function request() {
   return { type: POST_DOG_REQUEST };
 }

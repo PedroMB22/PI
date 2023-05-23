@@ -5,7 +5,7 @@ const WeightFilter = ({ sortOrder, onSortChange }) => {
     };
   
     return (
-      <div className="weight-filter">
+      <div className="filter weight-filter">
         <label htmlFor="sort-select-weight">Sort by Weight:</label>
         <select id="sort-select-weight" value={sortOrder || ''} onChange={handleSortChange}>
           <option value="">Select...</option>

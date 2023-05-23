@@ -4,16 +4,13 @@ import '../../css/cards.css'
 
 const Card = (props) => {
     const { id, name, image, temperament, height, weight, life_span } = props
-    //console.log("PROPS EN CARDS",props);
     return (
         <div className="card">
             <img src={image} alt={name} />
             <div className="card-text">
                 <h3>{name}</h3>
                 <p>Temperament: {temperament}</p>
-                <p>Height: {height?.metric || height}</p>
                 <p>Weight: {weight?.metric || weight}</p>
-                <p>Life Span: {life_span}</p>
             </div>
             <NavLink to={`/dogdetail/${id}`}>
                 <button className="input-box button">Details</button>

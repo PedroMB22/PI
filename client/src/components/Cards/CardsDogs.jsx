@@ -17,9 +17,7 @@ const CardsDogs = (props) => {
           name={dog.name}
           image={dog.image}
           temperament={dog.temperaments?.map((temperament) => temperament.name).join(', ') || dog.temperament}
-          height={dog.height}
           weight={dog.weight}
-          life_span={dog.life_span}
         />
       ))}
     </div>

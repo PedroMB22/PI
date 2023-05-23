@@ -123,16 +123,17 @@ const Home = () => {
 
   return (
     <>
-      <h1>Home</h1>
-      <TemperamentsFilter
-        selectedTemperament={selectedTemperament}
-        onTemperamentChange={handleTemperamentChange}
-      />
-      <WeightFilter
-        sortOrder={weightSortOrder}
-        onSortChange={handleWeightSortChange}
-      />
-      <NameFilter sortOrder={nameSortOrder} onSortChange={handleNameSortChange} />
+      <div className="filters">
+        <TemperamentsFilter
+          selectedTemperament={selectedTemperament}
+          onTemperamentChange={handleTemperamentChange}
+        />
+        <WeightFilter
+          sortOrder={weightSortOrder}
+          onSortChange={handleWeightSortChange}
+        />
+        <NameFilter sortOrder={nameSortOrder} onSortChange={handleNameSortChange} />
+      </div>
       <div className="cards-section">
         {allDogs.isLoading ? (
           <Loader />
