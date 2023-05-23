@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dogsActions } from "../../redux/actions/dogs.actions";
 import { temperamentsActions } from "../../redux/actions/temperaments.actions";
 import { useNavigate } from "react-router-dom";
-import "../../css/form.css"; 
+import "../../css/form.css";
 
 const areTemperamentsMatching = (temperamentsString, selectedTemperaments) => {
   if (!temperamentsString) {
@@ -15,11 +15,13 @@ const areTemperamentsMatching = (temperamentsString, selectedTemperaments) => {
 };
 
 const CreateDog = () => {
+
+  const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const temperaments = useSelector((state) =>
-  Object.values(state.temperamentsReducer?.data || {}).sort()
-);  
+    Object.values(state.temperamentsReducer?.data || {}).sort()
+  );
   const [name, setName] = useState("");
   const [minHeight, setMinHeight] = useState("");
   const [maxHeight, setMaxHeight] = useState("");
@@ -35,6 +37,11 @@ const CreateDog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight || !lifeSpan || selectedTemperaments.length === 0) {
+      alert("All fields must be completed.");
+      return;
+    }
 
     const dogData = {
       name,
@@ -59,33 +66,38 @@ const CreateDog = () => {
     setName(newName);
   };
 
-  const handleTemperamentChange = (e) => {
+  const handleTemperamentAddition = (e) => {
     const temperament = e.target.value;
-  
+
     if (selectedTemperaments.length > 0) {
-      // Verificar si la combinación de temperamentos seleccionada está disponible en algún perro de la lista
       const matchingCombination = dogs.some((dog) =>
         areTemperamentsMatching(dog.temperament, [
           ...selectedTemperaments,
           temperament,
         ])
       );
-  
+
       if (!matchingCombination) {
         alert("This combination of temperaments is not available.");
         return;
       }
     }
-  
-    if (selectedTemperaments.includes(temperament)) {
-      setSelectedTemperaments(selectedTemperaments.filter((t) => t !== temperament));
-    } else {
+
+     if (!selectedTemperaments.includes(temperament)) {
       setSelectedTemperaments([...selectedTemperaments, temperament]);
+      setSelectedOption(""); 
     }
   };
 
+  const handleTemperamentRemoval = (temperament) => {
+    setSelectedTemperaments(selectedTemperaments.filter((t) => t !== temperament));
+    setSelectedOption("");
+  };
+
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
+      <h1>NUEVA RAZA</h1>
       <div className="input-box">
         <i className="uil uil-dog"></i>
         <input
@@ -145,7 +157,7 @@ const CreateDog = () => {
         <i className="uil uil-hourglass"></i>
         <input
           className="input-field"
-          type="text"
+          type="number"
           placeholder="Años de vida"
           value={lifeSpan}
           onChange={(e) => setLifeSpan(e.target.value)}
@@ -154,14 +166,13 @@ const CreateDog = () => {
 
       <div className="input-box">
         <i className="uil uil-search"></i>
-        <select className="select" multiple onChange={handleTemperamentChange}>
-          {temperaments
-            .filter((temperament) => !selectedTemperaments.includes(temperament))
-            .map((temperament) => (
-              <option key={temperament} value={temperament}>
-                {temperament}
-              </option>
-            ))}
+        <select className="select" value={selectedOption} onChange={handleTemperamentAddition}>
+          <option value="">Todos los temperamentos</option>
+          {temperaments.map((temperament) => (
+            <option key={temperament} value={temperament}>
+              {temperament}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -171,7 +182,7 @@ const CreateDog = () => {
             {temperament}
             <button
               className="remove-button"
-              onClick={() => handleTemperamentChange({ target: { value: temperament } })}
+              onClick={() => handleTemperamentRemoval(temperament)}
             >
               X
             </button>

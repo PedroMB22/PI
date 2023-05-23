@@ -1,71 +1,115 @@
+.form {
+  /* Asegúrate de tener estas propiedades establecidas */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Esto centrará los elementos hijos tanto horizontalmente como verticalmente */
+  flex-direction: column; /* Esto hará que los elementos hijos se apilen verticalmente */
+  /* Continúa con el resto de tus estilos... */
+  background-color: #3e6aa3;
+  width: 80%;
+  max-width: 700px;
+  border-radius: 20px;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #110e0e;
+}
+
+
+.form h1 {
+  color: #060607;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
 .input-box {
-    position: relative;
-    height: 60px;
-    max-width: 700px;
-    width: 100%;
-    background: #fff;
-    margin: 0 20px;
-    border-radius: 8px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  }
+  margin-bottom: 1.5rem;
+  position: relative;
+  height: 80px;
+}
+
+.input-box i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #3e6aa3;
   
-  .input-box i,
-  .input-box .button,
-  .select {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .input-box i {
-    left: 20px;
-    font-size: 30px;
-    color: #707070;
-  }
-  
-  .input-box input {
-    height: 100%;
-    width: 100%;
-    outline: none;
-    font-size: 18px;
-    font-weight: 400;
-    border: none;
-    padding: 0 155px 0 65px;
-    background-color: transparent;
-  }
-  
-  .input-box .button {
-    right: 20px;
-    font-size: 16px;
-    font-weight: 400;
-    color: #fff;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 6px;
-    background-color: #4070f4;
-    cursor: pointer;
-  }
-  
-  .input-box .button:active {
-    transform: translateY(-50%) scale(0.98);
-  }
-  
-  .select {
-    right: 160px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #4070f4;
-    border: none;
-    padding: 10px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .input-box input::placeholder {
-    color: #4070f4;
-  }
-  
-  .uil-search {
-    color: #4070f4!important;
-  }
-  
+}
+
+.input-field,
+.input-group input,
+ {
+  width: 100%;
+  border: 1px solid #110e0e;
+  border-radius: 20px;
+  padding: 0 40px 0 40px;
+  height: 50px;
+  font-size: 1rem;
+
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.input-group input {
+  width: calc(50% - 8px);
+  padding: 0 50px;
+  margin-top: 23px;
+
+}
+
+.selected-temperament {
+  display: inline-block;
+  background-color: #3e6aa3;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin: 5px;
+  font-size: 0.9rem;
+
+}
+
+.remove-button {
+  background-color: #d13434;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 0 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.button {
+  background-color: #d44949;
+  border: none;
+  color: rgb(15, 14, 14);
+  padding: 20px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  margin: 4px 20px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+
+}
+
+.button:hover {
+  background-color: #5a1111;
+  color: #fff;
+}
+.select{
+  width: 100%;
+  max-width: 300px; /* Puedes cambiar esto según lo que necesites */
+  border: 1px solid #110e0e;
+  border-radius: 20px;
+  padding: 0 30px 0 30px;
+  height: 50px;
+  font-size: 1rem;
+  margin: auto; /* Esto centrará tu select verticalmente */
+}

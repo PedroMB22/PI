@@ -12,10 +12,9 @@
     height: auto;
     width: 110px;
     margin-top: 5px;
+    cursor: pointer;
   }
-  .menu {
-    align-items: center;
-  }
+ 
   
   .search-bar {
     text-align: center;
@@ -31,4 +30,31 @@
 .search-bar,
 .menu {
   flex: 1;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px; /* Ajusta este valor a la cantidad de espacio que desees */
+  width: 80%;
+  margin: 0 auto;
+}
+
+.menu a {
+  justify-content: center;
+  border: 1px solid #d1d1d1;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 0 10px; /* Agrega márgenes a los lados de cada enlace */
+  overflow: hidden;
+  background-color: white;
+  text-decoration: none;
+  color: #4070f4;
+  transition: transform 0.3s ease;
+}
+
+
+.menu a:active {
+  transform: scale(0.88);
 }

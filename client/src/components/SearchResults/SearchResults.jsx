@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Card from "../Cards/Card";
+import { temperamentService } from "../../redux/services";
 
 export default function SearchResults() {
   const location = useLocation();
@@ -15,16 +16,17 @@ export default function SearchResults() {
       {searchResults.length > 0 ? (
         <div className="card-container">
           {searchResults.map((dog) => (
-           <Card
-             key={dog.id}
-             id={dog.id}
-             name={dog.name}
-             image={dog.image || (dog.reference_image_id ? `${imageUrl}${dog.reference_image_id}.jpg` : imageDefault)}
-             temperament={dog.temperaments?.map(temperament => temperament.name).join(', ') || dog.temperaments}
-             weight={dog.weight}
-             height={dog.height}
-             life_span={dog.life_span}
-           />
+            <Card
+            key={dog.id}
+            id={dog.id}
+            name={dog.name}
+            image={dog.image || (dog.reference_image_id ? `${imageUrl}${dog.reference_image_id}.jpg` : imageDefault)}
+            temperament={dog.temperaments?.map(temperament => temperament.name).join(', ') || dog.temperaments || dog.temperament }
+            weight={dog.weight}
+            height={dog.height}
+            life_span={dog.life_span}
+            showDetails
+          />
           ))}
         </div>
       ) : (
