@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../css/landing.css';
 import LoaderGif from '../images/gif.gif'
 
-const LandingPage = ({ onEnter }) => {
+const LandingPage = () => {
     const [loading, setLoading] = useState(true);
-  
+    const navigate = useNavigate();
+
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
       }, 3000);
     }, []);
-  
+
     const handleEnterButton = () => {
-      onEnter();
+      navigate('/home');
     };
 
   return (

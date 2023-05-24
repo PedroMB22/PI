@@ -17,12 +17,12 @@ export default function Navbar() {
 
   const handleHomeClick = (event) => {
     event.preventDefault();
-    navigate("/");
+    navigate("/home");
   };
 
   const handleLogoClick = (event) => {
     event.preventDefault();
-    navigate("/");
+    navigate("/home");
   };
 
   return (

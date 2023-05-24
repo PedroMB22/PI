@@ -4,18 +4,16 @@
     background-position: center;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   
-  .loaders {
-    width: 100px;
-    height: 100px;
-    animation: moveGif 3s linear infinite;
-    background-color: white;
-    border-radius: 50%; 
-    z-index: 2;
-    
+  .title {
+    font-size: 50px;
+    color: #080808;
+    text-align: center;
+    margin-top: -500px; 
   }
   
   .enter-button {
@@ -25,18 +23,30 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  
-  }
-  .loaders-container {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 400px; 
+    margin-top: 70px; 
   }
   
   .enter-button:hover {
-    background-color: #e0e0e0;
+    background-color: #e0e0f0;
   }
+  
+  .loaders-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -500px; 
+  }
+  
+  .loaders {
+    width: 100px;
+    height: 100px;
+    animation: moveGif 3s linear infinite;
+    background-color: white;
+    border-radius: 50%; 
+    z-index: 2;
+  }
+  
   @keyframes moveGif {
     0% {
       transform: translateX(-250%);
@@ -45,33 +55,12 @@
       transform: translateX(250%);
     }
   }
+  
   .loaders-text {
     position: absolute;
     z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: #080808; 
     font-size: 20px; 
     text-align: center;
   }
-  .title{
-    font-size: 50px;
-    color: #080808;
-    text-align: center;
-    margin-bottom: 700px;
-  }
   
-  .enter-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .landing-page-content {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }

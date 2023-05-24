@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import '../src/css/app.css';
 import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
@@ -10,24 +9,17 @@ import Details from './components/Details/Details';
 import Landing from './components/Landing/Landing';
 
 function App() {
-  const [visited, setVisited] = useState(false);
-
   return (
     <div className="App">
       <Router>
-        <NavBar />
-        {visited ? (
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search-results" element={<SearchResults />} />
-            <Route path="/create-dog" element={<CreateDog />} />
-            <Route path="/dogdetail/:id" element={<Details />} />
-          </Routes>
-        ) : (
-          <Landing onEnter={() => setVisited(true)} />
-        )}
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<><NavBar /><Home /><Footer /></>} />
+          <Route path="/search-results" element={<><NavBar /><SearchResults /><Footer /></>} />
+          <Route path="/create-dog" element={<><NavBar /><CreateDog /><Footer /></>} />
+          <Route path="/dogdetail/:id" element={<><NavBar /><Details /><Footer /></>} />
+        </Routes>
       </Router>
-      <Footer />
     </div>
   );
 }
