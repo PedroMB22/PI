@@ -1,0 +1,77 @@
+.landing-page {
+    background-image: url('https://img.freepik.com/free-photo/group-portrait-adorable-puppies_53876-148018.jpg?w=1380&t=st=1684886976~exp=1684887576~hmac=cfb98374d3b3ac6ace2db025d87d501b8ddf320e7510c77a41f50218711ac445');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loaders {
+    width: 100px;
+    height: 100px;
+    animation: moveGif 3s linear infinite;
+    background-color: white;
+    border-radius: 50%; 
+    z-index: 2;
+    
+  }
+  
+  .enter-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+  }
+  .loader-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 400px; 
+  }
+  
+  .enter-button:hover {
+    background-color: #e0e0e0;
+  }
+  @keyframes moveGif {
+    0% {
+      transform: translateX(-250%);
+    }
+    100% {
+      transform: translateX(250%);
+    }
+  }
+  .loader-text {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #080808; 
+    font-size: 20px; 
+    text-align: center;
+  }
+  .title{
+    font-size: 50px;
+    color: #080808;
+    text-align: center;
+    margin-bottom: 700px;
+  }
+  
+  .enter-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .landing-page-content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }

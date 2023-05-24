@@ -6,17 +6,20 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SearchResults from './components/SearchResults/SearchResults';
 import CreateDog from './components/Form/Form';
 import Details from './components/Details/Details';
+import Landing from './components/Landing/Landing';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <NavBar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search-results" element={<SearchResults />} />
-          <Route path="/create-dog" element={<CreateDog />} />
-          <Route path="/dogdetail/:id" element={<Details />} />
+          <Route path="/" element={<Landing />} />
+          <Route element={<NavBar />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/create-dog" element={<CreateDog />} />
+            <Route path="/dogdetail/:id" element={<Details />} />
+          </Route>
         </Routes>
       </Router>
       <Footer />
