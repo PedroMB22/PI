@@ -20,9 +20,9 @@ export default function Navbar() {
     navigate("/");
   };
 
-  const handleLogoClick = () => {
+  const handleLogoClick = (event) => {
+    event.preventDefault();
     navigate("/");
-    window.location.reload();
   };
 
   return (

@@ -27,7 +27,7 @@
     cursor: pointer;
   
   }
-  .loader-container {
+  .loaders-container {
     position: relative;
     width: 100px;
     height: 100px;
@@ -45,7 +45,7 @@
       transform: translateX(250%);
     }
   }
-  .loader-text {
+  .loaders-text {
     position: absolute;
     z-index: 1;
     top: 50%;

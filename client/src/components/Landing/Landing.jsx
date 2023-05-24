@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/landing.css';
 import LoaderGif from '../images/gif.gif'
-const LandingPage = () => {
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
-
-  const handleEnterButton = () => {
-    // Lógica para redirigir a tu web
-  };
+const LandingPage = ({ onEnter }) => {
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    }, []);
+  
+    const handleEnterButton = () => {
+      onEnter();
+    };
 
   return (
     <div className="landing-page">
